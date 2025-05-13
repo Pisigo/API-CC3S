@@ -1,0 +1,19 @@
+meta {
+  name: Criar tabelas
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/users
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nome": "gabriel",
+    "email": "email",
+    "senha": 123
+  }
+}
