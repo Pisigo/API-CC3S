@@ -4,12 +4,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const conexao = mysql.createConnection({
-  host: process.env.MYSQLHOST || 'localhost',
-  user: process.env.MYSQLUSER || 'root',
-  password: process.env.MYSQLPASSWORD || '',
-  database: process.env.MYSQLDATABASE || 'railway',
-  port: process.env.MYSQLPORT || 3306,
-  ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : null
+  host: "switchback.proxy.rlwy.net",
+  user: "root",                      
+  password: "UbqVUvAelBarVyYwsiBGrDWWoIQErBAB", 
+  database: "railway",               
+  port: 18856,                       
+  ssl: { rejectUnauthorized: false } 
 });
 
 conexao.connect(err => {
