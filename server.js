@@ -5,7 +5,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import fs from 'fs';
 const swaggerFile = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
 
-
+const PORT = process.env.PORT || 3000;
 const app = express()
 app.use(express.json())
 
@@ -279,7 +279,10 @@ app.delete('/enderecos/:id', (req, res) => {
     res.status(200).json({ mensagem: 'Endereço deletado com sucesso' });
   });
 });
-app.listen(3000)
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
 // Requisitos de uma rota
 // 1) Tipo de rota / metodo HTTP
 // 2) Endereço 
