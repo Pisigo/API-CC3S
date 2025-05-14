@@ -4,11 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const conexao = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+  host: process.env.MYSQLHOST || 'localhost',
+  user: process.env.MYSQLUSER || 'root',
+  password: process.env.MYSQLPASSWORD || '',
+  database: process.env.MYSQLDATABASE || 'railway',
+  port: process.env.MYSQLPORT || 3306,
   ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : null
 });
 
