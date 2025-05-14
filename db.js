@@ -1,23 +1,31 @@
-import mysql from 'mysql2';
+import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const conexao = mysql.createConnection({
-  host: "switchback.proxy.rlwy.net",
-  user: "root",                      
-  password: "UbqVUvAelBarVyYwsiBGrDWWoIQErBAB", 
-  database: "railway",               
-  port: 18856,                       
-  ssl: { rejectUnauthorized: false } 
-});
+const dbConfig = {
+  host: process.env.MYSQLHOST || "switchback.proxy.rlwy.net", // Usar MYSQLHOST ou fallback
+  user: process.env.MYSQLUSER || "root",
+  password: process.env.MYSQL_ROOT_PASSWORD || "UbqVUvAe1BarVyYws1BGrDMw01QEr8AB",
+  database: process.env.MYSQL_DATABASE || "railway",
+  port: process.env.MYSQLPORT || 3386,
+  ssl: { rejectUnauthorized: false }, 
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+};
 
-conexao.connect(err => {
-  if (err) {
-    console.error('Erro ao conectar no banco:', err);
-  } else {
-    console.log('Conectado ao MySQL!');
+const pool = mysql.createPool(dbConfig);
+
+// Teste de conexão
+(async () => {
+  try {
+    const connection = await pool.getConnection();
+    console.log('✅ Conectado ao MySQL no Railway!');
+    connection.release();
+  } catch (err) {
+    console.error('❌ Erro ao conectar ao banco:', err);
   }
-});
+})();
 
-export default conexao;
+export default pool;
